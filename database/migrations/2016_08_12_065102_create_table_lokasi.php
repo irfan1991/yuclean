@@ -16,7 +16,7 @@ class CreateTableLokasi extends Migration
             $table->increments('id');
             $table->string('nama');
             $table->text('deskripsi');
-             $table->text('alamat');
+            $table->text('alamat');
             $table->string('district');
             $table->string('city');
             $table->string('image');

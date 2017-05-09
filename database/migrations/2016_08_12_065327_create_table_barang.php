@@ -14,6 +14,11 @@ class CreateTableBarang extends Migration
     {
         Schema::create('barangs', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->string('photo');
+            $table->string('model');
+            $table->decimal('price', 10, 2); // max XX,XXX,XXX.XX
+            $table->decimal('weight', 8, 2); // max XXX,XXX,XX
             $table->timestamps();
         });
     }

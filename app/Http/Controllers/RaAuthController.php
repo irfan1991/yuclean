@@ -12,6 +12,7 @@ use App\Kabupaten;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+
 class RaAuthController extends Controller
 {
     /**
@@ -23,7 +24,7 @@ class RaAuthController extends Controller
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
 
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
     protected $username = 'username';
 
     public function __construct()
@@ -83,11 +84,14 @@ class RaAuthController extends Controller
             'pengepul' => $data['pengepul'],
             'banksampah' => $data['banksampah'],
             'image' =>  $fileName,
+           
             'password' => bcrypt($data['password']),
+            'api_token' => bcrypt($data['username'])
         ]);
 $role = Input::get('role');
 $memberRole = Role::where('name', $role)->first();
 $user->attachRole($memberRole);
+//event(new \App\Events\UserReferred(request()->cookie('ref'), $user));
 return $user;
 
     }

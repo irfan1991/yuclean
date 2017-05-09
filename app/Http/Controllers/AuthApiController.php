@@ -17,7 +17,7 @@ class AuthApiController extends Controller
 	    {
 	    	   $this->validate($request, [
 	            'name' => 'required|max:255',
-	            'password' => 'required|min:6',
+	            'password' => 'required|min:3',
 	            'username' => 'required|unique:users',
 	        ]);
 
@@ -25,6 +25,8 @@ class AuthApiController extends Controller
             'name'      => $request->name,
             'username'     => $request->username,
             'password'  => bcrypt($request->password),
+            'alamat' => $request->alamat,
+            
         	 'api_token' => bcrypt($request->username)
       		  ]);
       		  
@@ -61,6 +63,17 @@ class AuthApiController extends Controller
 			}
 
 
+ public function profile(User $user, Request $request)
+    {
 
+    	$idx = $request->get('id');
+        $user = $user->find($idx);
+        return fractal()
+        ->item($user)
+        ->transformWith(new UserTransformer)
+        ->includeTransaksis()
+        ->toArray();
+    }
+	
 
 }

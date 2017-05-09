@@ -26,5 +26,5 @@
 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
 {!! Form::submit(isset($model) ? 'Update' : 'Save', ['class'=>' btn-primary']) !!}
 
- <button class=" btn-primary btn-md" ><a href="{{ URL::route('sampah.index') }}"  class=" btn-primary btn-md" >Cancel</a> </button>
+ <button class=" btn-primary btn-md" ><a href="{{ URL::route('sampah.index') }}"  class=" btn-primary btn-md" >Batal</a> </button>
 

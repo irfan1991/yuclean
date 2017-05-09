@@ -26,15 +26,16 @@
 {!! Form::close()!!}
 </div>
 <hr>
+<font size="5"><b>&nbsp;&nbsp;&nbsp; Komentar Pembaca</b></font>
 <ul id="comments" class="comments">
 @foreach($comments as $comment)
 <li class="comment">
 <div class="clearfix">
 	<h4 class="pull-left">{{$comment->commenter}}</h4>
-	<p class="pull-right">{{tgl_indo($comment->created_at)}}</p>
+	<p  class="pull-right">{{tgl_indo($comment->created_at)}}</p>
 </div>
-	<p>
-		<em>{{$comment->comment}}</em>
+	<p >
+		<em >{{$comment->comment}}</em>
 	</p>
 </li>
 @endforeach

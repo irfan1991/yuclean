@@ -1,0 +1,47 @@
+
+/* start main1 */
+
+/* start main */
+
+/* start grids_of_3 */
+.grids_of_3{
+	text-align:center;
+	margin: 4% 0;
+}
+.grid1_of_3{
+	float: left;
+	width: 29.333%;
+	margin-left: 4.3333%;
+	border: 1px solid rgb(223, 223, 223);
+	position: relative;
+}
+.grid1_of_3:first-child{
+	margin-left: 0;
+}
+.grid1_of_3 a{
+	padding: 2%;
+	display: block;
+}
+.grid1_of_3 img{
+	margin-top: 8%;
+}
+.grid1_of_3 h3{
+	margin: 6% 0 8%;
+	font-size: 1.8em;
+	color: #999999;
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+}
+.grid1_of_3:hover h3,.grid1_of_3:hover h4 span{
+	color: rgb(24, 141, 118);
+}
+.b_btm{
+	position: absolute;
+	width: 100%;
+	border-bottom: 6px solid #3CC395;
+	left: 0px;
+	display: block;
+	bottom: 0px;
+}

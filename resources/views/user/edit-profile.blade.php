@@ -69,7 +69,7 @@
 
 <div class="form-group">
 <div class="col-md-6 col-md-offset-4">
-{!! Form::submit('Update Profile', ['class'=>' btn-primary']) !!}
+{!! Form::submit('Perbaharui Profil', ['class'=>' btn-primary']) !!}
 </div>
 </div>
 {!! Form::close() !!}

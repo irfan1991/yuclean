@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Sampah;
+use App\User;
 use Yajra\Datatables\Html\Builder;
 use Yajra\Datatables\Datatables;
 use App\Http\Requests;
 use Session;
-
+use Auth;
+use DB;
 class SampahController extends Controller
 {
     /**
@@ -24,9 +26,36 @@ class SampahController extends Controller
     
 }
 
-    public function getIndex()
+    public function lihat(Request $request)
     {
         //
+      $a=  Auth::user()->banksampah;
+
+$result = DB::table('users')->select('pengepul')->where('banksampah', $a)->first();
+ $user = DB::table('sampahs')
+            ->join('users', 'sampahs.user_id', '=', 'users.id')
+             ->where('users.id','=', (array) $result)
+            ->select('sampahs.*')
+            ->get();
+
+
+        return view('sampah.list',compact('user','a'));
+    }
+
+
+    public function lihatbank(Request $request)
+    {
+        
+      $a=  Auth::user()->banksampah;
+    $b = Auth::user()->pengepul;
+ $user = DB::table('sampahs')
+            ->join('users', 'sampahs.user_id', '=', 'users.id')
+             ->where('users.id','=',  $b)
+            ->select('sampahs.*') 
+            ->get();
+
+
+        return view('sampah.listbank',compact('user','a'));
     }
 
 
@@ -54,7 +83,11 @@ return Datatables::of($sampah)->make();
        $data = Sampah::select("nama as name")->where("nama","LIKE","%{$request->input('query')}%")->get();
         return response()->json($data);
     }
-
+ public function autocomplate2(Request $request)
+    {
+       $data = Sampah::select("nama as name")->where("nama","LIKE","%{$request->input('query')}%")->get();
+        return response()->json($data);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -72,6 +105,25 @@ return Datatables::of($sampah)->make();
         return redirect()->route('sampah.index');
     }
 
+    public function createHarga()
+    {
+        //
+        $sampah = Sampah::all();
+        return view('sampah.usersampah', compact('sampah'));
+    }
+
+public function addUserSampah(Request $request)
+    {
+        $this->validate($request, ['nama' => 'required']);
+        $sampah = Sampah::create($request->all());
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil menyimpan $sampah->nama"
+        ]);
+        return redirect('/sampahuser');
+
+       
+    }
 
     /**
      * Display the specified resource.

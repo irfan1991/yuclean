@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
             return \Hash::check($value, $parameters[0]);
             });
             
-
+             \View::composer('*', 'App\Http\ViewComposers\CartComposer');
 
     }
 

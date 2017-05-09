@@ -5,39 +5,41 @@
 	}
 </style>
    <!-- Styles -->
-@extends('layouts.apa')
+@extends('layouts.ape')
 
 @section('content')
 
 <div class="container">
 	<div class="col-sm-12">
 		<h1>Tambah Lokasi Bank Sampah</h1>
-		{{Form::open(['route' => 'lokasi.tambah','class'=>'formp', 'files' => true])}}
+		 @if ($errors->any())
+             <div class="flash alert-danger">
+               @foreach($errors->all() as $error)
+               <p>{{ $error}}</p>
+               @endforeach
+             </div>
+              @endif  
+		{{Form::open(['route' => 'lokasi.tambah','class'=>'formp', 'enctype'=>'multipart/form-data','files' => 'true'])}}
 			<div class="form-group">
 				<label for="">Nama Bank Sampah</label>
 				<input type="text" class="form-control input-sm" name="nama" id="nama">
 			</div>
 			<div class="form-group">
 				<label for="">Deskripsi </label>
-				<input type="text" class="form-control input-sm" name="deskripsi" id="deskripsi">
+	<textarea class = "form-control" rows = "3" name="deskripsi" id="deskripsi"></textarea>
 			</div>
-
 			<div class="form-group">
-				<label for="" >Kota</label>
-				<select class="form-control input-sm" name="city" id="city">
-       			@foreach($coba as $kota)
-        		<option value="{{$kota->id}}">{{$kota->nama}}</option>
-        		@endforeach
-				</select>
-                </div>
-                <div class="form-group">
+				<label for="">Alamat Lengkap </label>
+			<textarea class = "form-control" rows = "3" name="alamat" id="alamat"></textarea>
+			</div>
+			<div class="form-group">
 				<label for="" >Propinsi</label>
-				<select class="form-control input-sm" name="district" id="district">
-       			
-        		<option value=" "> </option>
-        		
-				</select>
-                </div>
+				<input type="text" class="form-control input-sm" name="district" id="district">
+            </div>
+                <div class="form-group">
+				<label for="" >Kota</label>
+				<input type="text" class="form-control input-sm" name="city" id="city">
+            </div>
 			<div class="form-group">
 				<label for="">Foto Lokasi </label>
 		        <input id="image" name="image" class="input-file" type="file">
@@ -67,7 +69,7 @@
 	</div>
 
 </div>
-
+@endsection
 <script>
 var marker;
 geoLocationInit();
@@ -87,11 +89,9 @@ function fail(position)
 
 function succes(position)
 {
-	//console.log(position);
 	var latval = position.coords.latitude;
 	var lngval = position.coords.longitude;
 	console.log([latval,lngval]);
-	
 	var Latlong =  new google.maps.LatLng(latval,lngval);
 	createMap(Latlong);
 	
@@ -139,66 +139,5 @@ function succes(position)
 		$('#lat').val(lat);
 		$('#lng').val(lng);
 
-	});
-
-}
-
- $('.formp').validate({
-                errorElement: 'label', //default input error message container
-                errorClass: 'help-inline', // default input error message class
-                focusInvalid: false, // do not focus the last invalid input
-                ignore: "",
-                rules: {
-                    
-                    nama: {
-                        required: true
-                    },
-                                      
-                    alamat: {
-                        required: true
-                    },
-                    city: {
-                        required: true
-                    },
-                    district: {
-                        required: true
-                    },
-                     propinsi: {
-                        required: true
-                    },
-                     kabupaten: {
-                        required: true
-                    },
-                     kecamatan: {
-                        required: true
-                    },
-
-                    username: {
-                        required: true,
-                        number : true,
-                        min : 11
-                    },
-
-                    password: {
-                        
-                        maxlength:16,
-                        minlength:6,
-                        required: true,
-                                                   
-                    },
-                    password_confirmation: {
-                        equalTo: "#password"
-                    },
-                image: {
-                        image: true,
-                        required: true,
-                    },
-                    tnc: {
-                        required: true
-                    }
-                },
-
-                     });
-
-	</script>
-@endsection
+	});}
+</script>

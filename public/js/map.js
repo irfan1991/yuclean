@@ -1,6 +1,6 @@
 var map;
 var myLatLng;
-var marker;
+//var marker;
 $(document).ready(function() {
     geoLocationInit();
 
@@ -37,16 +37,17 @@ $(document).ready(function() {
         });
     }
 
-function createMarker(latlng, icn, name){
-	 marker = new google.maps.Marker({
+function createMarker(latlng, icn, nama){
+	var marker = new google.maps.Marker({
     position: latlng,
     map: map,
     icon:icn,
-    title: name
+    title: nama
   });
 }
 
 
+    
 /*function nearSearch(Latlong, type){
 
 		var request = {
@@ -75,17 +76,22 @@ function createMarker(latlng, icn, name){
 
 function searchLokasi(lat,lng)
 {
-	$.post('http://localhost/yuclean/public/api/lokasi/search',{lat:lat,lng:lng},function(match){
+	$.post('http://localhost/trashpedia/public/api/lokasi/search',{lat:lat,lng:lng},function(match){
 		//console.log(match);
+         $('#lokasiResult').html('');
 		$.each(match, function(i, val){
 		console.log(val.nama);
 		var glatval = val.lat;
 		var glngval = val.lng;
 		var gname = val.nama;
+        var galamat = val.alamat;
+        var gdeskripsi = val.deskripsi;
+        var ggambar = val.image;
 		var GLatlong =  new google.maps.LatLng(glatval,glngval);
-		var gicn =  icn = 'http://localhost/yuclean/public/images/icon.png' ;
-		createMarker(GLatlong,gicn,gname);
-		
+		var gicn  = 'http://localhost/trashpedia/public/images/icon.png' ;
+		createMarker(GLatlong,gicn,gname,galamat,gdeskripsi,ggambar);
+		var html='<tr><td style="width:100px;height:100px"><img src="http://localhost/trashpedia/public/images/lokasi/'+ggambar+'" class="thumbnail" style="width:100px;height:100px" ></td><td>'+gname+'</td><td>'+galamat+'</td><td>'+gdeskripsi+'</td></tr>';
+                $('#lokasiResult').append(html);
 		});
 
 	});
@@ -93,6 +99,17 @@ function searchLokasi(lat,lng)
 }
 
 
+    $('#searchLokasi').submit(function(e){
+       e.preventDefault();
+        var distval=$('#district').val();
+        var cityval=$('#citylocation').val();
+        $.post('http://localhost/trashpedia/public/api/getlokasi',{distval:distval,cityval:cityval},function(match){
+
+            var myLatLng = new google.maps.LatLng(match[0],match[1]);
+            createMap(myLatLng);
+            searchLokasi(match[0],match[1]);
+        });
+    });
 
 });
 

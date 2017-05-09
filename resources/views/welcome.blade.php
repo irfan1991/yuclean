@@ -1,44 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>YuClean Sistem Manajemen Bank Sampah</title>
+    <title>Transpedia Sistem Manajemen Bank Sampah</title>
     <meta charset="utf-8">
+    <meta name="dicoding:email" content="asisten91@gmail.com">
     <meta name="format-detection" content="telephone=no"/>
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
      <link href="{{ asset('app/font-awesome.min.css') }} " rel="stylesheet" type="text/css"/>
-  
      <link href="{{ asset('app/bootstrap.css') }} " rel="stylesheet" type="text/css"/>
      <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="css/grid.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/camera.css"/>
     <link rel="stylesheet" href="css/owl.carousel.css"/>
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery-migrate-1.2.1.js"></script>
-    <script src="js/jquery.equalheights.js"></script>
+    <script src="{{asset('js/jquery.js')}}"></script>
+    <script src="{{asset('js/jquery-migrate-1.2.1.js')}}"></script>
+    <script src="{{asset('js/jquery.equalheights.js')}}"></script>
     <!--[if (gt IE 9)|!(IE)]><!-->
-    <script src="js/jquery.mobile.customized.min.js"></script>
+    <script src="{{asset('js/jquery.mobile.customized.min.js')}}"></script>
     <!--<![endif]-->
+<script src="{{asset('js/bootstrap-hover-dropdown.js')}}"></script>
 
-    <script src="js/camera.js"></script>
-    <script src="js/owl.carousel.js"></script>
+    <script src="{{asset('js/camera.js')}}"></script>
+    <script src="{{asset('js/owl.carousel.js')}}"></script>
     <!--[if lt IE 9]>
-    <div style=' clear: both; text-align:center; position: relative;'>
-        <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
-            <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0"
-                 height="42" width="820"
-                 alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."/>
-        </a>
-    </div>
-    <script src="js/html5shiv.js"></script>
-    <link rel="stylesheet" type="text/css" media="screen" href="css/ie.css">
-    <![endif]-->
+       <![endif]-->
 </head>
-<body>
+<body >
 <div class="page">
-<!--========================================================
-                          HEADER
-=========================================================-->
 <header id="header">
     <div id="stuck_container">
         <div class="container">
@@ -47,71 +36,101 @@
                     <div class="brand put-left">
                         <h1>
                             <a href="{{ url('/') }}">
-                                <img src="{{asset('images/logo.png')}}" alt="Logo" style="height: 60px" />
+                                <img src="{{asset('images/logon.png')}}" alt="Logo" style="height: 60px" />
                             </a>
                         </h1>
                     </div>
-                    <nav class="nav put-right">
+                    <nav class="nav put-right ">
                         <ul class="sf-menu">
-                            <li><a href="{{ url('/home') }}">Home</a></li>
+                            <li><a href="{{ url('/') }}">Home</a></li>
                         @role('banksampah')
-                               <li> <a href="{{ url('/timbang') }}">Timbang</a></li>
+                               <li> <a href="{{ url('/timbang') }}"> Data Nasabah</a></li>
                         @endrole
-                        @role('banksampah' or 'pengepul')
-                               <li> <a href="{{ url('/event') }}">Atur Acara</a></li>
-                        @endrole
-                        @role('pengepul')
-                               <li> <a href="{{ url('/sampah') }}">Atur Harga</a></li>
-                        @endrole
-                            <li>
-                                <a href="#">Fitur</a> 
-                                <ul>
-                                 @role('pengepul')
-                                    <li><a href="{{url('sampah')}}">Harga Sampah</a></li>
-                                 @endrole
-                                    <li><a href="#">Jual Beli</a></li>
-                                    <li><a href="#">Lihat Harga</a></li>
-                                    <li><a href="#">Invite Teman</a></li>
-                                    <li><a href="{{url('/event/list')}}">Event</a></li>
-                                    <li><a href="#">Tarik Dana</a></li>
-                                      <li><a href="#">Daftar Bonus</a></li>
+                         @role('pengepul')
+                        <li><a href="{{ url('/sampahuser') }}">Input Harga Sampah</a></li>  
+                         @endrole
+
+
+                            
+                        @role('admin')
+                             <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    Kelola <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                 <li><a href="{{ route('barang.index') }}"><i class="glyphicon glyphicon-gift"></i> Barang Kerajinan</a></li>
+                                    <li><a href="{{ route('categories.index') }}"><i class="glyphicon glyphicon-paperclip"></i> Kategori Kerajinan</a></li>
+                                    <li><a href="{{ route('event.index') }}"><i class="glyphicon glyphicon-list-alt"></i> Kegiatan</a></li>
+                                     <li><a href="{{ route('sampah.index') }}"><i class="glyphicon glyphicon-leaf"></i> Harga Sampah</a></li>                              
+                                     <li><a href="{{ route('orders.index') }}"><span class="glyphicon glyphicon-briefcase"></span> Daftar Pesanan</a></li>
                                 </ul>
-                                
                             </li>
+                             @endrole
+                               <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                  Fitur <span class="caret"></span>
+                                </a>
+                                   <ul class="dropdown-menu" role="menu">
+                                   
+                         
+                                     <li><a href="{{url('catalogs')}}"><i class="glyphicon glyphicon-briefcase"></i> Jual Beli</a></li>
+                                    <li><a href="{{url('/event/list')}}"> <i class="glyphicon glyphicon-bullhorn"></i> Kegiatan</a></li>
+                             @role('banksampah')
+                                      <li><a href="{{ url('listsampahbank') }}"><i class="glyphicon glyphicon-leaf"></i> Harga Sampah</a></li>           
+                                    @endrole
+                            
+                                    @role('nasabah')
+                                      <li><a href="{{ url('listsampah') }}"><i class="glyphicon glyphicon-leaf"></i> Harga Sampah</a></li> 
+                                      <li class="dropdown-submenu">
+                                <a href="#"><i class="glyphicon glyphicon-credit-card"></i> Tarik Dana</a>
+                                <ul class="dropdown-menu">
+                                 <li><a href="{{url('/tarikdana')}}"> Transfer</a></li>
+                                
+                                   <li><a href="{{url('/pulsa')}}"> Tukar Pulsa</a></li>
+                                    </ul>
+                                    </li>
 
+                                 @endrole
+                                </ul> 
+                                                       
+                                        </li>
                              @if (Auth::guest())
-                                         
-                            <li>
-
-                      <a href="#">Daftar</a>
-                              <ul>
-                                    <li><a href="{{url('/renas')}}">Sebagai Nasabah</a></li>
-                                    <li><a href="{{url('/rebang')}}">Sebagai Bank Sampah</a></li>
-                                    <li><a href="{{url('/register')}}">Sebagai Pengepul</a></li>
+                                        
+                           
+                    <li class="dropdown">
+                                <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    Daftar <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{url('/renas')}}"><span class="glyphicon glyphicon-user"></span> Sebagai Nasabah</a></li>
+                                    <li><a href="{{url('/rebang')}}"><span class="glyphicon glyphicon-user"></span> Sebagai Bank Sampah</a></li>
+                                    <li><a href="{{url('/register')}}"><span class="glyphicon glyphicon-user"></span> Sebagai Pengepul</a></li>
                              </ul>  
                               
                             </li>
                                 
-                            <li><a href="{{ url('/login') }}" >Login</a></li>
+                            <li><a href="{{ url('/login') }}" >Masuk</a></li>
                             @else
                                             <li class="dropdown">
 <a href="#" class="  dropdown-toggle user-profile" data-toggle="dropdown" role="button" aria-expanded="false"> <img src="{{ URL::to('/') }}/images/user/{{ Auth::user()->image }}" alt=""> Halo, 
                   {{ Auth::user()->name }} !<span class="caret"></span>
                 </a>
-
+ 
                 <ul class="dropdown-menu" role="menu">
-                  <li><a href="{{ url('/settings/password') }}"><i class="fa fa-btn fa-lock"></i> Ubah Password</a></li>
-                  <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                  <li><a href="{{ url('/home') }}"><span class="glyphicon glyphicon-user"></span> Profil</a></li>
+                  <li><a href="{{ url('/settings/password') }}"><span class="glyphicon glyphicon-cog"></span> Ubah Password</a></li>
+                  <li><a href="{{ url('/logout') }}"><span class="glyphicon glyphicon-log-out"></span> Keluar</a></li>
                 </ul>
-
                 @endif
-                           <li>
-
-                      <a href="#">Lokasi</a>
-                              <ul>
-                                    <li><a href="{{url('/lokasi')}}">Lihat Lokasi Bank Sampah</a></li>
+                 @include('layouts._customer-feature', ['partial_view'=>'layouts._cart-menu-bar'])
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                  Lokasi <span class="caret"></span>
+                                </a>
+                                   <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{url('/lokasi')}}"><span class="glyphicon glyphicon-map-marker"></span> Lihat Lokasi Bank Sampah</a></li>
                                     @role('banksampah')
-                                    <li><a href="{{url('/lokasi/add')}}">Tambah Data Lokasi Bank Sampah</a></li>
+                                    <li><a href="{{url('/lokasi/add')}}"><span class="glyphicon glyphicon-map-marker"></span>  Tambah Lokasi Bank Sampah</a></li>
                                    @endrole
                              </ul>  
                               
@@ -127,24 +146,55 @@
                           CONTENT
 =========================================================-->
 <section id="content">
-<div class="camera-wrapper">
-    <div id="camera" class="camera-wrap">
+<div class="camera-wrapper" >
+    <div id="camera" class="camera-wrap" >
+   
         <div data-src="images/bank sampah.jpg">
             <div class="fadeIn camera_caption">
-                <h2 class="text_1 color_1">Menambah Penghasilan</h2>
+                <h2 class="text_1 color_1">Menyulap Sampah Menjadi Rupiah</h2>
                 <a class="btn_1" href="{{ url('/pildaf') }}">Daftar</a>
             </div>
         </div>
+      
+        
         <div data-src="images/bank_sampah.jpg">
             <div class="fadeIn camera_caption">
                 <h2 class="text_1 color_1">Mengurangi Pencemaran</h2>
                 <a class="btn_1" href="{{ url('/login') }}">Login</a>
             </div>
         </div>
+      
+
+     
         <div data-src="images/banksampah.jpg">
             <div class="fadeIn camera_caption">
                 <h2 class="text_1 color_1">Solusi Permasalahan Sampah</h2>
                 <a class="btn_1" href="{{ url('/home') }}">Home</a>
+            </div>
+        </div>
+ 
+
+    </div>
+</div>
+
+<div class="bg_1 wrap_2 wrap_4">
+    <div class="container">
+        <div class="row">
+            <div class="preffix_2 grid_8">
+                <h2 class="header_1 wrap_3 color_3">
+                    Apa Itu Program Bank Sampah??
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="grid_12">
+                <div class="box_1">
+                    <p class="text_3 color_5">
+                         Bank sampah adalah suatu tempat yang digunakan untuk mengumpulkan sampah yang sudah dipilah-pilah hasilnya dan disetorkan kepada pengepul kemudian dijual dalam partai besar ke pabrik untuk diolah kembali. Hasil penjualan sampah dikembalikan pada masyarakat sesuai besaran sampah yang dikumpulkan dan dapat diambil dalam kurun waktu tertentu.
+                                              <br/>
+                        Dasar hukum bank sampah merupakan realisasi dari UU no 8 Th 2008 yakni tentang pengolahan sampah. 
+                       
+                </div>
             </div>
         </div>
     </div>
@@ -155,7 +205,7 @@
         <div class="row">
             <div class="preffix_2 grid_8">
                 <h2 class="header_1 wrap_3 color_3">
-                    Apa Itu YuClean??
+                    Lalu Apa Itu Transpedia??
                 </h2>
             </div>
         </div>
@@ -163,7 +213,7 @@
             <div class="grid_12">
                 <div class="box_1">
                     <p class="text_3 color_5">
-                        YuClean adalah aplikasi berbasis web dan mobile untuk membantu manajemen bank sampah
+                        Transpedia adalah aplikasi berbasis web dan mobile untuk membantu manajemen bank sampah
                                               <br/>
                         Memudahkan transaksi nasabah
                         Memudahkan mengetahui saldo tabungan dan penarikannya
@@ -180,7 +230,7 @@
     </div>
 </div>
         <h2 class="header_1 wrap_3 color_3">
-                 Kelebihan YuClean
+                 Kelebihan Trashpedia
         </h2>
 
 <div class="container" >
@@ -264,6 +314,6 @@
         </div>
     </div>
 </footer>
-<script src="js/script.js"></script>
+<script src="{{asset('js/script.js')}}"></script>
 </body>
 </html>

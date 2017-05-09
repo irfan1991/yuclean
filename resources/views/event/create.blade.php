@@ -16,7 +16,7 @@
              </div>
               @endif  
               <br>
-                  {!! Form::open(['route' => 'event.store', 'class'=>'form-horizontal formp', 'file'=>'true','enctype'=>'multipart/form-data'])!!}
+                  {!! Form::open(['route' => 'event.store', 'class'=>'form-horizontal formp', 'files'=>true,'enctype'=>'multipart/form-data'])!!}
 
                         {{ csrf_field() }}
 
@@ -61,7 +61,7 @@
 
 
  <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-          <label class="col-md-4 control-label" for="image">Upload Foto</label>
+          <label class="col-md-4 control-label" for="image">Masukkam Foto</label>
                     <div class="col-md-6">
                 <input id="image" name="image" class="input-file" type="file">
                   @if ($errors->has('image'))
@@ -75,12 +75,15 @@
 
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">                                <button type="submit" class="btn-primary">
-                                    <i class="fa fa-btn fa-user"></i> Submit
+                            <div class="col-md-6 col-md-offset-4">    
+                             <button type="submit" class="btn-primary btn-sm">
+                                    <i class="fa fa-btn fa-user"></i> Kumpulkan
                                 </button>
-                                <button class="btn-primary">
-                                  <a href="{{ URL::route('event.index') }}"  class=" btn-primary btn-md" >Cancel</a>
-                                </button>
+                                  |
+                                    <a href="{{ URL::route('event.index') }}" style="color:black " >Batal</a>
+                            
+                                  
+                              
                                 
                                 
                             </div>

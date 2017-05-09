@@ -4,7 +4,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h3>Data Nasabah <small><a href="{{ route('tambang.create') }}" class=" btn-warning btn-sm">New Data</a></small></h3>
+        <h3>Data Nasabah <small><a href="{{ route('tambang.create') }}" class=" btn-warning btn-sm">Tambah Data</a></small></h3>
         {!! Form::open(['url' => 'tambang', 'method'=>'get', 'class'=>'form-inline pull-right']) !!}
             <div class="form-group {!! $errors->has('q') ? 'has-error' : '' !!}">
               {!! Form::text('q', isset($q) ? $q : null, ['class'=>'form-control', 'placeholder' => 'Nama Nasabah..']) !!}

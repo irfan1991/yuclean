@@ -19,10 +19,13 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $event = Event::orderBy('id','desc')->paginate(5);
-        return view('event.index',compact('event'));
+          $q = $request->get('q');
+        $event = Event::where('judul', 'LIKE', '%'.$q.'%')
+            ->orWhere('judul', 'LIKE', '%'.$q.'%')
+       ->orderBy('judul')->paginate(10);
+        return view('event.index',compact('event','q'));
 
     }
 

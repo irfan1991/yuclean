@@ -29,6 +29,7 @@ class Kernel extends HttpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
+             \App\Http\Middleware\StoreReferralCode::class,
         ],
 
         'api' => [
@@ -52,6 +53,10 @@ class Kernel extends HttpKernel
         'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
         'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
+        'checkout.have-cart' => \App\Http\Middleware\CheckoutHaveCart::class,
+        'checkout.login-step-done' => \App\Http\Middleware\CheckoutLoginStepDone::class,
+        'checkout.address-step-done' => \App\Http\Middleware\CheckoutAddressStepDone::class,
+        'checkout.payment-step-done' => \App\Http\Middleware\CheckoutPaymentStepDone::class,
         
     ];
 }

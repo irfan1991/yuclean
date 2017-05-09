@@ -15,4 +15,9 @@ class Sampah extends Model
     	return hasMany('App\Tabungan','sampah_id');
     }
 
+     public function user()
+    {
+        return $this->hasMany('App\User');
+    }
+
 }

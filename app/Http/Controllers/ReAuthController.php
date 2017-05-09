@@ -12,6 +12,8 @@ use App\Kabupaten;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use App\Events\UserReferred;
+use Cookie;
 class ReAuthController extends Controller
 {
     /**
@@ -76,12 +78,24 @@ protected function validator(array $data)
             'rt' => $data['rt'],
             'banksampah' => $data['banksampah'],
             'image' =>  $fileName,
+             'affiliate_id' => str_random(10),
             'password' => bcrypt($data['password']),
+            'api_token' => bcrypt($data['username'])
         ]);
 $role = Input::get('role');
 $memberRole = Role::where('name', $role)->first();
 $user->attachRole($memberRole);
+if (Cookie::get('ref') !== null) {
+    # code...
+    event(new \App\Events\UserReferred(request()->cookie('ref'), $user));
 return $user;
+} else {
+    # code...
+    return $user;
+}
+
+
+
 
     }
 

@@ -16,6 +16,12 @@ class VerifyCsrfToken extends BaseVerifier
      'api/auth/login',
     'api/user',
     'api/user/profile',
-    'api/lokasi/search'
+    'api/lokasi/search',
+    'api/searchcity',
+    'api/getlokasi',
+    'address/regencies',
+     'api/sampah',
+     'api/histori',
+      'api/tarikdana'
     ];
 }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Lokasi;
-use App\Kabupaten;
 use App\Http\Requests;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use File;
@@ -19,16 +18,30 @@ class LokasiController extends Controller
     
 public function search(Request $request)
 	{
-	$lat = $requet->lat;
-	$lng = $requet->lng;
-	$lokasi = Lokasi::whereBetween('lat',[$lat-0.1,$lng+0.1])->whereBetween('lng',[$lat-0.1,$lng+0.1])->get();
+	$lat = $request->lat;
+	$lng = $request->lng;
+	$lokasi = Lokasi::whereBetween('lat',[$lat-0.1,$lat+0.1])->whereBetween('lng',[$lng-0.1,$lng+0.1])->get();
 	return $lokasi;	
 	}
 
+      public function locationCoords(Request $request)
+    {
+        $cityval=$request->cityval;
+        $distval=$request->distval;
+        $col=Lokasi::where('district',$distval)->where('city',$cityval)->first();
+
+        $lat=$col->lat;
+        $lng=$col->lng;
+
+
+        return [$lat,$lng];
+    }
+
 public function lihat()
     {
+         $districts=Lokasi::pluck('district','district');
         $lokasi = Lokasi::orderBy('id','desc')->paginate(5);
-        return view('lokasi.front', compact('lokasi'));
+        return view('lokasi.front', compact('lokasi','districts'));
     }
 
 public function tambah(Request $request)
@@ -36,8 +49,9 @@ public function tambah(Request $request)
         $q = $request->get('q');
         $lokasi = Lokasi::where('nama', 'LIKE', '%'.$q.'%')
             ->orderBy('nama')->paginate(5);
-        $coba = Kabupaten::all();
-        return view('lokasi.add', compact('lokasi', 'q','coba'));
+      
+
+        return view('lokasi.add', compact('lokasi', 'q'));
     } 
 
     public function atur(Request $request)
@@ -48,17 +62,23 @@ public function tambah(Request $request)
         return view('lokasi.index', compact('lokasi', 'q'));
     } 
     
+     public function searchCity(Request $request)
+    {
+        $distval=$request->distval;
+        $matchedCities=Lokasi::where('district',$distval)->pluck('city','city');
+
+        return view('lokasi.ajaxresult',compact('matchedCities'));
+    }
+
 	public function add(Request $request)
     {
         $this->validate($request, [
             'nama' => 'required',
             'deskripsi' => 'required',
-            'district' => 'district',
-           // 'city' => 'city',
-              'lat' => 'lat',
-            'lng' => 'lng',
+            'district' => 'required',
+           
                  ]);
-        $data = $request->only('nama', 'deskripsi','district','city','lat', 'lng');
+        $data = $request->only('nama', 'deskripsi','alamat','district','city','lat', 'lng');
 
         if ($request->hasFile('image')) {
             $data['image'] = $this->savePhoto($request->file('image'));
@@ -67,7 +87,7 @@ public function tambah(Request $request)
         $lokasi = Lokasi::create($data);
        
         \Flash::success('Lokasi Bank Sampah  '.$lokasi->nama . ' saved.');
-        return redirect()->route('lokasi.index');
+        return redirect()->route('lokasi.hasil');
     }
 
      public function edit($id)
@@ -88,7 +108,7 @@ public function tambah(Request $request)
               'lat' => 'lat',
             'lng' => 'lng',
                  ]);
-        $data = $request->only('nama', 'deskripsi','district','city','lat', 'lng');
+        $data = $request->only('nama', 'deskripsi','district','alamat','city','lat', 'lng');
 
         if ($request->hasFile('image')) {
             $data['image'] = $this->savePhoto($request->file('image'));
@@ -113,7 +133,7 @@ public function tambah(Request $request)
     
     protected function savePhoto(UploadedFile $photo)
     {
-        $fileName = str_random(40) . '.' . $photo->guessClientExtension();
+       $fileName = uniqid().'.'.$photo->getClientOriginalExtension();
         $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'images/lokasi';
         $photo->move($destinationPath, $fileName);
         return $fileName;

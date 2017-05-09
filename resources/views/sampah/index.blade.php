@@ -4,7 +4,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h3>Harga Sampah <small><a href="{{ route('sampah.create') }}" class=" btn-warning btn-sm">New Data</a></small></h3>
+        <h3>Harga Sampah </h3>
   
  
         {!! Form::open(['url' => 'sampah', 'method'=>'get', 'class'=>'form-inline pull-right',]) !!}
@@ -13,7 +13,7 @@
               {!! $errors->first('q', '<p class="help-block">:message</p>') !!}
             </div>
 
-          {!! Form::submit('Search', ['class'=>' btn-primary']) !!}
+          {!! Form::submit('Cari', ['class'=>' btn-primary']) !!}
         {!! Form::close() !!}
         <script type="text/javascript">
         var path = "{{ route('autocomplete') }}";
@@ -32,7 +32,8 @@
               <td>Satuan</td>
               <td>Harga Asli</td>
               <td>Harga Nasabah</td>
-              <td>Intensif Bank Sampah</td>
+              <td>Insentif Bank Sampah</td>
+              <td>Pengepul</td>
               <td>Aksi</td>
                  </tr>
           </thead>
@@ -44,6 +45,7 @@
               <td><strong>Rp{{ number_format($sampahs->harga , 2) }}</strong></td>
               <td><strong>Rp{{ number_format($sampahs->harga - 2*$sampahs->potongan, 2) }}</strong></td>
               <td><strong>Rp{{ number_format($sampahs->potongan , 2) }}</strong></td>
+            
               <td>
                 {!! Form::model($sampahs, ['route' => ['sampah.destroy', $sampahs], 'method' => 'delete', 'class' => 'form-inline'] ) !!}
                  <a href="{{ route('sampah.edit', $sampahs->id)}}">Edit</a> |
@@ -54,6 +56,7 @@
             @endforeach
           </tbody>
         </table>
+        <small><a href="{{ route('sampah.create') }}" class=" btn-warning btn-sm">Tambah Data</a></small>
         <p>{!! $sampah->render() !!}</p>
       </div>
     </div>

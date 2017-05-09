@@ -14,9 +14,13 @@
         "yajra/laravel-datatables-oracle": "~6.0",
         "zizaco/entrust": "~1.7",
         "laracasts/flash": "^2.0",
-        "guzzlehttp/guzzle": "~4.0",
+        "guzzlehttp/guzzle": "^6.2",
         "nesbot/carbon": "^1.21",
-        "spatie/laravel-fractal": "^2.0"
+        "spatie/laravel-fractal": "^2.0",
+        "rizalafani/rajaongkirlaravel": "dev-master",
+        "yaro/soc-share": "^1.0",
+        "ramsey/uuid": "^3.5",
+        "moontoast/math": "*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -30,7 +34,8 @@
             "database"
         ],
         "files": [
-            "app/myhelper.php"
+            "app/myhelper.php",
+            "app/Support/Helpers.php"
         ],
         "psr-4": {
             "App\\": "app/"

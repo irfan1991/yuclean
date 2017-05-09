@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
+
 class AuthController extends Controller
 {
     /*
@@ -30,7 +31,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
     protected $username = 'username';
    
     /**
@@ -67,6 +68,9 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+         
+
+
         $fileName = 'null';
         $destinationPath = public_path('images/user/');
         $extension = Input::file('image')->getClientOriginalExtension();
@@ -82,17 +86,16 @@ class AuthController extends Controller
             'propinsi' => $data['propinsi'],
             'kabupaten' => $data['kabupaten'],
             'kecamatan' => $data['kecamatan'],
-           // 'kelurahan' => $data['kelurahan'],
-            //'rw' => $data['rw'],
-           // 'rt' => $data['rt'],
-          ///  'banksampah' => $data['banksampah'],
             'pengepul' => $data['pengepul'],
             'image' =>  $fileName,
-            'password' => bcrypt($data['password'])
+
+            'password' => bcrypt($data['password']),
+            'api_token' => bcrypt($data['username'])
         ]);
 $role = Input::get('role');
 $memberRole = Role::where('name', $role)->first();
 $user->attachRole($memberRole);
+
 return $user;
 
     }

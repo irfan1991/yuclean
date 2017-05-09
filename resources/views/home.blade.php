@@ -3,12 +3,10 @@
 @section('content')
 <div class="container">
       <div class="row">
-      <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
-           
-       <br>
+     
 <p class=" text-info">Waktu Server : {{$carbon}} </p>
-      </div>
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+   
+        <div class="col-xs-12 col-sm-12 " >
    
    
           <div class="panel panel-info">
@@ -17,10 +15,10 @@
             </div>
             <div class="panel-body">
               <div class="row">
-                <div class="col-md-3 col-lg-3 " align="center"> 
-  <img alt="User Pic" src="{{$user->photo_path}}" class="img-circle img-responsive"> 
+                <div class="col-md-3  " align="center"> 
+  <img alt="User Pic" src="{{$user->photo_path}}" class="img-circle img-responsive" style="width: 150px;height: 150px"> 
                 </div>
-                  <div class=" col-md-9 col-lg-9 "> 
+                  <div class=" col-md-9 "> 
                   <table class="table table-user-information">
                     <tbody>
                       <tr>
@@ -63,7 +61,7 @@
                           @role('nasabah')
                              <tr>
                         <td>Saldo:</td>
-                        <td> Rp 500,000</td>
+                        <td>{{Auth::user()->saldo_terakhir}}</td>
                       </tr>
                       
                         <tr>
@@ -136,34 +134,50 @@
                       @endrole
                       <tr>
                         <td>Email:</td>
-                        <td><a href="{{url('Auth::user()->email')}}">{{Auth::user()->email}}</a></td>
+                        <td>{{Auth::user()->email}}</td>
+                       
                       </tr>
                                               
                       </tr>
-                     
+                       
                     </tbody>
                   </table>
+                  @role('nasabah')
+                      @forelse(Auth::user()->getReferrals() as $referral)
+    <h4>
+        {{ $referral->program->name }}
+    </h4>
+    <code>
+        {{ $referral->link }}
+    </code>
+    <p>
+        Jumlah Point referral System: {{ $referral->relationships()->count() }}
+    </p>
+@empty
+    No referrals
+
+@endforelse 
+@endrole
+                     
                   <br>
                   <a href="{{url('/profile/edit',Auth::user()->id)}}" class=" btn-lg btn-primary">Edit</a>
                   @role('banksampah')
-                    <a href="{{url('/akses/edit',Auth::user()->id)}}" class=" btn-lg btn-primary">Edit Data Bank Sampah</a>
+                    <a href="{{url('/akses/edit',Auth::user()->id)}}" class=" btn-lg btn-primary">Edit Alamat</a>
                   @endrole
                    @role('pengepul')
-                    <a href="{{url('/akses/edit',Auth::user()->id)}}" class=" btn-lg btn-primary">Edit Data Pengepul</a>
+                    <a href="{{url('/akses/edit',Auth::user()->id)}}" class=" btn-lg btn-primary">Edit Alamat</a>
                   @endrole
                    @role('nasabah')
-                    <a href="{{url('/akses/edit',Auth::user()->id)}}" class=" btn-lg btn-primary">Edit Data Nasabah</a>
+                    <a href="{{url('/akses/edit',Auth::user()->id)}}" class=" btn-lg btn-primary">Edit Alamat</a>
                   @endrole
-                  <a href="{{url('/logout')}}" class="btn-lg btn-primary">Logout</a>
+                  <a href="{{url('/logout')}}" class="btn-lg btn-primary">Keluar</a>
 
                 </div>
                 <br>
               </div>
             </div>
-                 <div class="panel-footer">
-                       
-                    </div>
-            
+                
+          
           </div>
         </div>
       </div>

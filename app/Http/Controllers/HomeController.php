@@ -35,14 +35,6 @@ class HomeController extends Controller
 
         
 
-    /**    $v = \DB::table('users')
-            ->join('wilayah_provinsis', 'users.propinsi', '=', 'wilayah_provinsis.id')
-            ->join('wilayah_kabupatens', 'users.kabupaten', '=', 'wilayah_kabupatens.id')
-            ->join('wilayah_kecamatans', 'users.kecamatan', '=', 'wilayah_kecamatans.id')
-            ->join('wilayah_kelurahans', 'users.kelurahan', '=', 'wilayah_kelurahans.id')
-            ->select('users.*', 'wilayah_kabupatens.nama as kabupaten', 'wilayah_provinsis.nama as propinsi','wilayah_kecamatans.nama as kecamatan', 
-                'wilayah_kelurahans.nama as kelurahan')()
-            ->get();**/
 $user = Auth::user();
 $role =   $user->roles->first()->display_name ;// or display_name
 
@@ -167,6 +159,16 @@ if ($request->get('pengepul') != NULL) {
 
 } 
 
-
+public function viewOrders(Request $request)
+    {
+        $q = $request->get('q');
+        $status = $request->get('status');
+        $orders = auth()->user()->orders()
+            ->where('id', 'LIKE', '%'. $q . '%')
+            ->where('status', 'LIKE', '%' . $status . '%')
+            ->orderBy('updated_at')
+            ->paginate(5);
+        return view('customer.view-orders')->with(compact('orders', 'q', 'status'));
+    }
 
 }

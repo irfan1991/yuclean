@@ -1,0 +1,1 @@
+<li><a href="{{ url('/cart') }}"><span class="glyphicon glyphicon-shopping-cart"></span>{{ $cart->totalBarang() > 0 ? '(' . $cart->totalBarang() . ')' : ''}}</a></li>

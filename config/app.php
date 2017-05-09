@@ -148,7 +148,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
-
+        rizalafani\rajaongkirlaravel\RajaOngkirServiceProvider::class,
+        Yaro\SocShare\ServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -213,7 +214,8 @@ return [
         'Entrust' => Zizaco\Entrust\EntrustFacade::class,
         'Flash' => 'Laracasts\Flash\Flash',
         'Fractal' => Spatie\Fractal\FractalFacade::class,
-
+        'RajaOngkir' => rizalafani\rajaongkirlaravel\RajaOngkirFacade::class,
+        'SocShare' => Yaro\SocShare\Facade::class,
     ],
 
 ];

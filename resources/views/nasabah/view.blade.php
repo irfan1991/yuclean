@@ -182,7 +182,7 @@
                 </div>
             </div>
 
-<a href="{{url('laporan/pdfnabung/'.$nasabah->id)}}" class=" btn-danger btn-lg pull-right"><i class="glyphicon glyphicon-print"></i> PRINT</a><br></br>
+<br></br>
             <div class="col-sm-12">
 
 <table class="table table-bordered " >
@@ -196,6 +196,7 @@
     </table>
 
 </div>
+<a href="{{url('laporan/pdfnabung/'.$nasabah->id)}}" class=" btn-danger btn-lg pull-right"><i class="glyphicon glyphicon-print"></i> PRINT</a>
         </div>
     </div>
 </div>

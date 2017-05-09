@@ -6,7 +6,7 @@
         <div class="col-md-8 col-md-offset-2" >
         
             <div class="panel panel-danger" >
-                <div class="panel-heading"  >Update Data 
+                <div class="panel-heading"  >Perbaharui Data 
                     @role('nasabah') Nasabah @endrole
                       @role('banksampah') Bank Sampah @endrole
                         @role('pengepul') Pengepul @endrole
@@ -321,7 +321,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class=" btn-primary">
-                                    Update
+                                    Pebaharui
                                 </button>
                             </div>
                         </div>

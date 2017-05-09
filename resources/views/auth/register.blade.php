@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2" >
             <div class="panel panel-success" >
-                <div class="panel-heading"  >Registrasi Pengepul</div>
+                <div class="panel-heading" >Daftar Menjadi Pengepul</div>
                 <div class="panel-body">
                   @if ($errors->any())
              <div class="flash alert-danger">
@@ -36,8 +36,10 @@
                             <label for="username" class="col-md-4 control-label" style="color:black">No Telepon/Hp</label>
 
             <div class="col-md-6">
-  <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}">
-
+               <div class="input-group">
+            <div class="input-group-addon">+62</div>
+  <input id="username" type="text"  autocomplete="off" class="form-control" name="username" value="{{ old('username') }}">
+</div>
                                 @if ($errors->has('username'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('username') }}</strong>
@@ -69,7 +71,7 @@
                             <label for="alamat" class="col-md-4 control-label" style="color:black" >Alamat Lengkap </label>
 
                             <div class="col-md-6">
-                 <textarea class = "form-control" rows = "3" name="alamat"></textarea>
+                 <textarea class = "form-control" rows = "3" name="alamat" id="alamat"></textarea>
 
                                 @if ($errors->has('alamat'))
                                     <span class="help-block">
@@ -78,6 +80,7 @@
                                 @endif
                             </div>
                         </div>
+
 
 
 <div class="form-group{{ $errors->has('image ') ? ' has-error' : '' }}">
@@ -98,7 +101,25 @@
                             <label for="password" class="col-md-4 control-label" style="color:black">Password</label>
 
             <div class="col-md-6">
-             <input id="password" type="text" class="form-control" name="password">
+             <input id="password" type="password" class="form-control" name="password">
+             <p><label><input id="methods" type="checkbox"> Show password</label></p> <p id="eventLog">Event log</p>
+
+<script src="{{asset('js/bootstrap-show-password.js')}}"></script>
+<script>
+    $(function() {
+        $('#password').password().on('show.bs.password', function(e) {
+            $('#eventLog').text('On show event');
+            $('#methods').prop('checked', true);
+        }).on('hide.bs.password', function(e) {
+                    $('#eventLog').text('On hide event');
+                    $('#methods').prop('checked', false);
+                });
+        $('#methods').click(function() {
+            $('#password').password('toggle');
+        });
+    });
+</script>
+
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
@@ -109,7 +130,7 @@
                         </div>
 
      <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label" style="color:black">Confirm Password</label>
+                            <label for="password-confirm" class="col-md-4 control-label" style="color:black">Konfirmasi  Password</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
@@ -180,6 +201,7 @@
                             </div>
                         </div>
 
+                   
 
 <input type="hidden" name="kelurahan" value=""  />
 <input type="hidden" name="banksampah" value=""  />
@@ -191,7 +213,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn  btn-primary">
-                                    <i class="fa fa-btn fa-user"></i> Register
+                                    <i class="glyphicon glyphicon-user"></i> Daftar
                                 </button>
                             </div>
                         </div>
